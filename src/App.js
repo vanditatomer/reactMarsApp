@@ -6,16 +6,23 @@ import axios from 'axios';
 class App extends Component {
   constructor(props) {
     super(props);
+  }
 
-    // FORM
-    this.state = {
-      name: " ",
-      age: "",
-      occupation: "Select occupation",
-      encounters: "loading..."
-    };
+  render() {
+    <div className="App">
+      <Encounters encounter={this.state.encounter} />
+      <Checkin />
+    </div>
+    
+  }
+}
 
-    //ENCOUNTERS
+class Encounters extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  //ENCOUNTERS
     this.state = {
       colonists: [],
       jobs: [],
@@ -23,21 +30,10 @@ class App extends Component {
       encounters: []
     };
 
-    // FORM HANDLERS
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
     this.setState({
       [name]: value,
       encounters: []
     });
-  }
 
    handleSubmit(event) {
     alert("Summitted!");
@@ -74,7 +70,6 @@ class App extends Component {
       axios.get('https://red-wdp-api.herokuapp.com/api/mars/aliens')
       .then((response) => {
           this.setState({aliens: response.data.aliens});
-          //console.log(response);
       })
       .catch(function (error) {
           console.log(error);
@@ -85,7 +80,6 @@ class App extends Component {
       axios.get('https://red-wdp-api.herokuapp.com/api/mars/encounters')
       .then((response) => {
           this.setState({encounters: response.data.encounters});
-          //console.log(response);
       })
       .catch(function (error) {
           console.log(error);
@@ -126,9 +120,86 @@ class App extends Component {
     }
 
   render() {
-    return (
+    //ENCOUNTER
+      if (this.state.colonists.length > 0) {
+        let colonists = this.state.colonists;
+        return (
+            <div className="encounter">
+                <div>
+                    {colonists.map(colonist => <h6 key={colonist.id}>{colonist.id}, {colonist.name}, {colonist.age}, {colonist.job.id}, {colonist.job.name}, {colonist.job.description}</h6>)}
+                </div>
+            </div>
+        );
 
-      // FORM
+        } else if (this.state.jobs.length > 0) {
+            let jobs = this.state.jobs;
+
+            return (
+              <div className="encounter">
+                  <div>
+                      {jobs.map(job => <h6 key={job.id}>{job.id}, {job.name}, {job.description}</h6>)}
+                  </div>
+              </div>
+            );
+
+        } else if (this.state.aliens.length > 0) {
+            let aliens = this.state.aliens;
+
+            return (
+              <div className="encounter">
+                <div>
+                    {aliens.map(alien => <h6 key={alien.id}>{alien.id}, {alien.type}, {alien.description}, {alien.submitted_by}</h6>)}
+                </div>
+              </div>
+            );
+
+        } else if (this.state.encounters.length > 0) {
+            let encounters = this.state.encounters;
+
+            return (
+              <div className="encounter">
+                <div>
+                    {encounters.map(encounter => <h6 key={encounter.id}>{encounter.id}, {encounter.date}, {encounter.job_id}, {encounter.atype}, {encounter.action}</h6>)}
+                </div>
+              </div>
+            );
+
+        } else {
+            return (
+              <div className="encounter">
+              </div>
+            );
+        }
+      //END OF ENCOUNTER
+  }
+
+}
+
+class Checkin extends Component {
+  constructor(props) {
+    super(props);
+
+    // FORM
+    this.state = {
+      name: " ",
+      age: "",
+      occupation: "Select occupation",
+    };
+
+    // FORM HANDLERS
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+
+// FORM
+  return (
       <form>
 
         <label>
@@ -171,59 +242,8 @@ class App extends Component {
       </form>
       );
       // END OF FORM
-
-      //ENCOUNTER
-      if (this.state.colonists.length > 0) {
-        let colonists = this.state.colonists;
-        return (
-            <div className="App">
-                <div>
-                    {colonists.map(colonist => <h6 key={colonist.id}>{colonist.id}, {colonist.name}, {colonist.age}, {colonist.job.id}, {colonist.job.name}, {colonist.job.description}</h6>)}
-                </div>
-            </div>
-        );
-
-        } else if (this.state.jobs.length > 0) {
-            let jobs = this.state.jobs;
-
-            return (
-              <div className="App">
-                  <div>
-                      {jobs.map(job => <h6 key={job.id}>{job.id}, {job.name}, {job.description}</h6>)}
-                  </div>
-              </div>
-            );
-
-        } else if (this.state.aliens.length > 0) {
-            let aliens = this.state.aliens;
-
-            return (
-              <div className="App">
-                <div>
-                    {aliens.map(alien => <h6 key={alien.id}>{alien.id}, {alien.type}, {alien.description}, {alien.submitted_by}</h6>)}
-                </div>
-              </div>
-            );
-
-        } else if (this.state.encounters.length > 0) {
-            let encounters = this.state.encounters;
-
-            return (
-              <div className="App">
-                <div>
-                    {encounters.map(encounter => <h6 key={encounter.id}>{encounter.id}, {encounter.date}, {encounter.job_id}, {encounter.atype}, {encounter.action}</h6>)}
-                </div>
-              </div>
-            );
-
-        } else {
-            return (
-              <div className="App">
-              </div>
-            );
-        }
-      //END OF ENCOUNTER
   }
+
 }
 
 export default App;
