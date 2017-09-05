@@ -1,249 +1,61 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
-import axios from 'axios';
+import {NewColonist, ListColonists} from './colonist';
+import {NewEncounter, ListEncounters} from './encounter';
 
+const Home = () => (
+    // welcome message for home page
+
+    <div>
+        <h2>Welcome to Mars Colony!</h2>
+    </div>
+)
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    <div className="App">
-      <Encounters encounter={this.state.encounter} />
-      <Checkin />
-    </div>
-    
-  }
-}
-
-class Encounters extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  //ENCOUNTERS
-    this.state = {
-      colonists: [],
-      jobs: [],
-      aliens: [],
-      encounters: []
-    };
-
-    this.setState({
-      [name]: value,
-      encounters: []
-    });
-
-   handleSubmit(event) {
-    alert("Summitted!");
-    event.preventDefault();
-  }
-
-  componentDidMount() {
-    console.log("Component mounted.");
-
-    this.getEncounters();
-  }
-
-  getColonists() {
-    axios.get('https://red-wdp-api.herokuapp.com/api/mars/colonists')
-      .then((response) => {
-        this.setState({colonists: response.data.colonists});
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-  }
-
-  getJobs() {
-    axios.get('https://red-wdp-api.herokuapp.com/api/mars/jobs')
-    .then((response) => {
-        this.setState({jobs: response.data.jobs});
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-    }
-
-    getAliens() {
-      axios.get('https://red-wdp-api.herokuapp.com/api/mars/aliens')
-      .then((response) => {
-          this.setState({aliens: response.data.aliens});
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-    }
-
-    getEncounters() {
-      axios.get('https://red-wdp-api.herokuapp.com/api/mars/encounters')
-      .then((response) => {
-          this.setState({encounters: response.data.encounters});
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-    }
-
-    postColonist() {
-      axios.post('https://red-wdp-api.herokuapp.com/api/mars/colonists', {
-          "colonist" : {
-              "name" : "Hooper",
-              "age" : "37",
-              "job_id" : "3"
-          }
-      })
-      .then(function (response) {
-          console.log(response);
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-    }
-
-    postEncounter() {
-      axios.post('https://red-wdp-api.herokuapp.com/api/mars/encounters', {
-          "encounter" : {
-            "atype" : "Octospider",
-            "date" : "2017-08-31",
-            "action" : "Web developer.",
-            "colonist_id" : "4"
-          }
-      })
-      .then(function (response) {
-          console.log(response);
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-    }
-
-  render() {
-    //ENCOUNTER
-      if (this.state.colonists.length > 0) {
-        let colonists = this.state.colonists;
+    render() {
         return (
-            <div className="encounter">
-                <div>
-                    {colonists.map(colonist => <h6 key={colonist.id}>{colonist.id}, {colonist.name}, {colonist.age}, {colonist.job.id}, {colonist.job.name}, {colonist.job.description}</h6>)}
+            // react router - main menu
+
+            <Router>
+                <div className="App">
+                    <div className="container">
+
+                        <ul className="main-menu">
+                            <li><Link to="/">Home</Link></li>
+                        </ul>
+
+                        <div className="dropdown">
+                            <button className="dropdown-button">Colonists</button>
+                            <div className="dropdown-content">
+                                <ul>
+                                    <li><Link to="/newcolonist">Register New</Link></li>
+                                    <li><Link to="/listcolonists">List All</Link></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="dropdown">
+                            <button className="dropdown-button">Encounters</button>
+                            <div className="dropdown-content">
+                                <ul>
+                                    <li><Link to="/newencounter">Report New</Link></li>
+                                    <li><Link to="/listencounters">List Recent</Link></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <Route exact path="/" component={Home}/>
+                    <Route path="/newcolonist" component={NewColonist}/>
+                    <Route path="/listcolonists" component={ListColonists}/>
+                    <Route path="/newencounter" component={NewEncounter}/>
+                    <Route path="/listencounters" component={ListEncounters}/>
                 </div>
-            </div>
+            </Router>
         );
-
-        } else if (this.state.jobs.length > 0) {
-            let jobs = this.state.jobs;
-
-            return (
-              <div className="encounter">
-                  <div>
-                      {jobs.map(job => <h6 key={job.id}>{job.id}, {job.name}, {job.description}</h6>)}
-                  </div>
-              </div>
-            );
-
-        } else if (this.state.aliens.length > 0) {
-            let aliens = this.state.aliens;
-
-            return (
-              <div className="encounter">
-                <div>
-                    {aliens.map(alien => <h6 key={alien.id}>{alien.id}, {alien.type}, {alien.description}, {alien.submitted_by}</h6>)}
-                </div>
-              </div>
-            );
-
-        } else if (this.state.encounters.length > 0) {
-            let encounters = this.state.encounters;
-
-            return (
-              <div className="encounter">
-                <div>
-                    {encounters.map(encounter => <h6 key={encounter.id}>{encounter.id}, {encounter.date}, {encounter.job_id}, {encounter.atype}, {encounter.action}</h6>)}
-                </div>
-              </div>
-            );
-
-        } else {
-            return (
-              <div className="encounter">
-              </div>
-            );
-        }
-      //END OF ENCOUNTER
-  }
-
-}
-
-class Checkin extends Component {
-  constructor(props) {
-    super(props);
-
-    // FORM
-    this.state = {
-      name: " ",
-      age: "",
-      occupation: "Select occupation",
-    };
-
-    // FORM HANDLERS
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  
-  }
-
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-
-// FORM
-  return (
-      <form>
-
-        <label>
-          Name:
-          <input
-            name="Name"
-            type="text"
-            checked={this.state.name}
-            onChange={this.handleInputChange} />
-        </label>
-
-        <br />
-        
-        <label>
-          Age:
-          <input
-            name="age"
-            type="number"
-            value={this.state.age}
-            onChange={this.handleInputChange} />
-        </label>
-
-        <br />
-
-        <label>
-          Select Occupation:
-          <select>
-            <option defaultValue="selectOccupation">Select Occupation</option>
-            <option value="alienHunter">Alien Hunter</option>
-            <option value="yogaTeacher">Yoga Teacher</option>
-            <option value="dustFarmer">Dust Farmer</option>
-            <option value="frontEndDev">Front End Web Developer</option>
-            <option value="bugKiller">Bug Killer</option>
-            <option value="weedFarmer">Weed Farmer</option>
-          </select>
-        </label>
-
-        <input type="submit" value="Submit" />
-
-      </form>
-      );
-      // END OF FORM
-  }
-
+    }
 }
 
 export default App;
