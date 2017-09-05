@@ -1,46 +1,41 @@
-/* application setup */
-
-h3 {
-    font-size: 1.25rem;
-    margin: 0 0 0 9.75rem;
+body {
+    color: rgb(255,255,255);
+}
+h2, h3, h4, h5 {
+    text-align: center;
+    color: rgb(255,255,255);
+    text-transform: uppercase;
 }
 
-h4 {
-    font-size: 1.25rem;
-    margin: 0 0 0 1rem;
+#grad {
+    background: linear-gradient(to top, rgba(237,67,67,.7), rgba(0,0,0,.8));
 }
 
-h5 {
-    font-size: 1.25rem;
-    margin: 0.5rem 0 0 0.5rem;
-    color: red;
+.mainFont {
+    font-family: 'Shadows Into Light', cursive;
 }
-
-/* main menu */
 
 .main-menu {
     display: flex;
     margin: 0;
 }
 
-.container {
-  display: flex;
+.appContainer {
+    display: flex;
+    justify-content: flex-end;
     overflow: hidden;
-    background-color: black;
-    font-family: Sans-Serif;
+    background-color: transparent;
     list-style-type: none;
     color: white;
 }
 
-.container li {
-    font-size: 16px;
-    text-align: center;
-    padding: 14px 16px;
+.appContainer li {
+    padding: 0.8em;
     list-style-type: none;
     text-decoration: none;
 }
 
-.container a {
+.appContainer a {
     color: white;
     list-style-type: none;
     text-decoration: none;
@@ -56,25 +51,19 @@ h5 {
     outline: none;
     color: white;
     padding: 14px 16px;
-    background-color: inherit;
 }
 
 .dropdown-button {
     display: flex;
 }
 
-.container li:hover, .dropdown:hover .dropdown-button {
-    background-color: red;
+.appContainer li:hover, .dropdown:hover .dropdown-button {
     list-style-type: none;
 }
 
 .dropdown-content {
     display: none;
-    position: absolute;
-    background-color: black;
-    min-width: 120px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    background: linear-gradient(to top, rgba(237,67,67,.7), rgba(0,0,0,.8));
 }
 
 .dropdown-content ul {
@@ -85,95 +74,35 @@ h5 {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content li:hover {
-    background-color: red;
+    text-align: center;
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+    display: flex;
+    background: transparent;
 }
-
-/* welcome message animation */
-
-h2 {
-    -webkit-animation: color-change 1.5s infinite;
-    -webkit-animation-direction: alternate;
-    -moz-animation: color-change 1.5s infinite;
-    -moz-animation-direction: alternate;
-    -o-animation: color-change 1.5s infinite;
-    -o-animation-direction: alternate;
-    -ms-animation: color-change 1.5s infinite;
-    -ms-animation-direction: alternate;
-    animation: color-change 1.5s infinite;
-    animation-direction: alternate;
-    margin-left: 1rem;
-}
-
-@-webkit-keyframes color-change {
-    from {color: black;}
-    to {color: red;}
-}
-
-@-moz-keyframes color-change {
-    from {color: black;}
-    to {color: red;}
-}
-
-@-ms-keyframes color-change {
-    from {color: black;}
-    to {color: red;}
-}
-
-@-o-keyframes color-change {
-    from {color: black;}
-    to {color: red;}
-}
-
-@keyframes color-change {
-    from {color: black;}
-    to {color: red;}
-}
-
-/* input forms */
 
 label {
-    display: inline-block;
-    width: 9rem;
-    text-align: right;
-    vertical-align: top;
-    font-size: 1.25rem;
-    color: black;
-    margin: 0.5rem 0.25rem 0.25rem 0.25rem;
+    padding-left: 5em;
 }​
 
 .App input {
     font-size: 3rem;
+    padding: 3em;
 }
 
 input[type=text] {
-    color: black;
+    color: rgba(0,0,0,.8);
     outline: none;
     font-size: 1.25rem;
     margin: 0.25rem;
-}
-
-input[type=text]:focus {
-    border: 3px solid red;
 }
 
 input[type=number] {
-    color: black;
+    color: rgba(0,0,0,.8);
     outline: none;
     font-size: 1.25rem;
     margin: 0.25rem;
-}
-
-input[type=number]:focus {
-    border: 3px solid red;
 }
 
 input[type=date] {
@@ -183,122 +112,67 @@ input[type=date] {
     margin: 0.25rem;
 }
 
-input[type=date]:focus {
-    border: 3px solid red;
-}
-
 input[type=submit] {
-    color: black;
+    color: rgba(0,0,0,.8);
     font-size: 1.25rem;
-    border-style: none;
-    border-radius: 6px;
-    outline: none;
-    margin: 1rem 1rem 1rem 9.75rem;
-    padding: 5px 10px 5px 10px;
-}
-
-input[type=submit]:focus {
-    border: 3px solid red;
+    margin: 1em;
+    margin-left: 5em;
 }
 
 select {
-    color: black;
+    color: rgba(0,0,0,.8);
     outline: none;
     font-size: 1.25rem;
     margin: 0.25rem;
-}
-
-select:focus {
-    border: 3px solid red;
 }
 
 textarea {
-    color: black;
-    outline: none;
+    color: rgba(0,0,0,.8);
     font-size: 1.25rem;
     margin: 0.25rem;
+    margin-left: 5em;
 }
-
-textarea:focus {
-    border: 3px solid red;
-}
-
-/* api post confirmation */
 
 .post-response div {
     display: flex;
     font-size: 1.25rem;
 }
 
-/* listing setup */
-
-.report-background {
-    background-color: black;
-    opacity: 0.7;
-    max-width: 60rem;
-}
-
-.report-background h4 {
-    font-size: 1.25rem;
-    margin: 0 0 0 1rem;
-    color: red;
-}
-
-.report-heading h6 {
+.listColName {
     display: flex;
-    color: red;
-    font-size: 1.25rem;
-    text-decoration: underline;
-    margin: 0 0 0 1rem;
+    justify-content: space-between;
+    color: rgb(255,255,255);
+    font-size: 2em;
 }
 
-.report-line div h6 {
+.appBackground h4 {
+    color: rgb(255,255,255);
+}
+
+.appHeading h6 {
     display: flex;
-    color: red;
-    font-size: 1.25rem;
-    margin: 0 0 0 1rem;
+    justify-content: space-between;
+    color: rgb(255,255,255);
+    font-size: 2em;
 }
 
-/* colonist listing - column widths */
-
-.colonist-report-column h6 span:nth-child(1) {
-    width: 3rem; /* colonist ID */
+.appHeading h6 span {
+    margin: 0em 0.5em;
 }
 
-.colonist-report-column h6 span:nth-child(2) {
-    width: 12rem; /* name */
+.appLine div h6 {
+    display: flex;
+    justify-content: space-around;
+    color: rgb(255,255,255);
+    font-size: 2em;
 }
 
-.colonist-report-column h6 span:nth-child(3) {
-    width: 4rem; /* age */
-}
-
-.colonist-report-column h6 span:nth-child(4) {
-    width: 15rem; /* job name */
-}
-
-.colonist-report-column h6 span:nth-child(5) {
-    width: 25rem; /* job description */
-}
-
-/* recent encounters listing - column widths */
-
-.encounter-report-column h6 span:nth-child(1) {
-    width: 7.5rem; /* encounter ID */
-}
-
-.encounter-report-column h6 span:nth-child(2) {
-    width: 8rem; /* date */
-}
-
-.encounter-report-column h6 span:nth-child(3) {
-    width: 6.5rem; /* colonist ID */
-}
-
-.encounter-report-column h6 span:nth-child(4) {
-    width: 10rem; /* alien type */
-}
-
-.encounter-report-column h6 span:nth-child(5) {
-    width: 30rem; /* action taken */
+.colonistPopulation {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2em;
+    font-weight: lighter;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0 4em;
 }

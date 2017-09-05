@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-// new alien encounter
-
 class NewEncounter extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +22,6 @@ class NewEncounter extends Component {
     }
 
     getAliens() {
-        // get alien list for dropdown from api
 
         this.setState({
             message: 'Loading...'
@@ -34,7 +31,7 @@ class NewEncounter extends Component {
             .then((response) => {
                 this.setState({
                     aliens: response.data.aliens,
-                    alien_type: response.data.aliens[0].type,
+                    alienType: response.data.aliens[0].type,
                     message: ''
                 });
             })
@@ -59,7 +56,6 @@ class NewEncounter extends Component {
     }
 
     postEncounter() {
-        // post new alien encounter through api
 
         this.setState({
             message: 'Submitting...'
@@ -67,7 +63,7 @@ class NewEncounter extends Component {
 
         axios.post('https://red-wdp-api.herokuapp.com/api/mars/encounters', {
             "encounter" : {
-                "atype" : this.state.alien_type,
+                "atype" : this.state.alienType,
                 "date" : this.state.date,
                 "action" : this.state.action,
                 "colonist_id" : this.state.colonist_id
@@ -88,7 +84,6 @@ class NewEncounter extends Component {
 
     render() {
         if (this.state.response.data !== undefined) {
-            // confirmation message for api post
 
             let encounter = this.state.response.data.encounter;
 
@@ -107,8 +102,6 @@ class NewEncounter extends Component {
                 </div>
             );
         } else if (this.state.message.length > 0) {
-            // display loading message
-
             return (
                 <div>
                     <br />
@@ -116,8 +109,6 @@ class NewEncounter extends Component {
                 </div>
             );
         } else if (this.state.aliens.length > 0) {
-            // input form for new alien encounter
-
             let aliens = this.state.aliens;
 
             return (
@@ -142,7 +133,7 @@ class NewEncounter extends Component {
                         onChange={(event)=>this.handleChange(event)} />
                     <br />
                     <label>Alien Type:</label>
-                    <select name="alien_type" value={this.state.alien_type} onChange={(event) => this.handleChange(event)}>
+                    <select name="alienType" value={this.state.alienType} onChange={(event) => this.handleChange(event)}>
                         {aliens.map(alien => <option key={alien.id} value={alien.type}>{alien.type}</option>)}
                     </select>
                     <br />
@@ -167,8 +158,6 @@ class NewEncounter extends Component {
     }
 }
 
-// recent encounters Listing
-
 class ListEncounters extends Component {
     constructor(props) {
         super(props);
@@ -184,7 +173,6 @@ class ListEncounters extends Component {
     }
 
     getEncounters() {
-        // get encounters listing from api
 
         this.setState({
             message: 'Loading...'
@@ -204,29 +192,27 @@ class ListEncounters extends Component {
 
     render() {
         if (this.state.response.data !== undefined) {
-            // display recent encounters listing
-
             let encounters = this.state.response.data.encounters;
             let recents = encounters.filter((encounter) => encounter.date >= '2017-01-01' );
 
             return (
                 <div className="App">
-                    <div className="report-background">
+                    <div className="appBackground">
                         <br />
                         <h4>Recent Encounters</h4>
                         <br />
-                        <div className="report-heading encounter-report-column">
+                        <div className="appHeading encounter-report-column">
                             <ListEncounterHeadings />
                         </div>
                         <br />
-                        <div className="report-line encounter-report-column">
+                        <div className="appLine encounter-report-column">
                             {recents.map(encounter =>
                                 <div key={encounter.id}>
                                     <ListEncounter
                                         encounter_id={encounter.id}
                                         encounter_date={encounter.date.substring(0,10)}
                                         colonist_id={encounter.colonist_id}
-                                        alien_type={encounter.atype}
+                                        alienType={encounter.atype}
                                         action_taken={encounter.action}
                                     />
                                 </div>
@@ -237,8 +223,6 @@ class ListEncounters extends Component {
                 </div>
             );
         } else if (this.state.message.length > 0) {
-            // display loading message
-
             return (
                 <div>
                     <br />
@@ -254,8 +238,6 @@ class ListEncounters extends Component {
     }
 }
 
-// display listing headings
-
 class ListEncounterHeadings extends Component {
   render() {
     return (
@@ -270,8 +252,6 @@ class ListEncounterHeadings extends Component {
   }
 }
 
-// display listing row
-
 class ListEncounter extends Component {
   render() {
     return (
@@ -279,7 +259,7 @@ class ListEncounter extends Component {
             <span>{this.props.encounter_id}</span>
             <span>{this.props.encounter_date}</span>
             <span>{this.props.colonist_id}</span>
-            <span>{this.props.alien_type}</span>
+            <span>{this.props.alienType}</span>
             <span>{this.props.action_taken}</span>
         </h6>
     );

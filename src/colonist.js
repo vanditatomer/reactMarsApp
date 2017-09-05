@@ -85,8 +85,6 @@ class NewColonist extends Component {
 
     render() {
         if (this.state.response.data !== undefined) {
-            // confirmation message for api post
-
             let colonist = this.state.response.data.colonist;
 
             return (
@@ -104,17 +102,13 @@ class NewColonist extends Component {
                 </div>
             );
         } else if (this.state.message.length > 0) {
-            // display loading message
-
             return (
                 <div>
                     <br />
-                    <h4>{this.state.message}</h4>
+                    <h3>{this.state.message}</h3>
                 </div>
             );
         } else if (this.state.jobs.length > 0) {
-            // input form for new colonist registration
-
             let jobs = this.state.jobs;
 
             return (
@@ -157,8 +151,6 @@ class NewColonist extends Component {
     }
 }
 
-// colonist listing
-
 class ListColonists extends Component {
     constructor(props) {
         super(props);
@@ -174,8 +166,6 @@ class ListColonists extends Component {
     }
 
     getColonists() {
-        // get colonist listing from api
-
         this.setState({
             message: 'Loading...'
         });
@@ -194,23 +184,21 @@ class ListColonists extends Component {
 
     render() {
         if (this.state.response.data !== undefined) {
-            // display colonist listing
-
             let colonists = this.state.response.data.colonists;
 
             return (
                 <div className="App">
-                    <div className="report-background">
+                    <div className="appBackground colonistPopulation">
                         <br />
-                        <h4>Colonist Listing</h4>
+                        <h3>Colonist Listing</h3>
                         <br />
-                        <div className="report-heading colonist-report-column">
-                            <ListColonistHeadings />
+                        <div className="appHeading colonistPopulation">
+                            <ListColName />
                         </div>
                         <br />
-                        <div className="report-line colonist-report-column">
+                        <div className="appLine">
                             {colonists.map(colonist =>
-                                <div key={colonist.id}>
+                                <div key={colonist.id} >
                                     <ListColonist
                                         colonist_id={colonist.id}
                                         colonist_name={colonist.name}
@@ -226,8 +214,6 @@ class ListColonists extends Component {
                 </div>
             );
         } else if (this.state.message.length > 0) {
-            // display loading message
-
             return (
                 <div>
                     <br />
@@ -243,34 +229,30 @@ class ListColonists extends Component {
     }
 }
 
-// display listing headings
-
-class ListColonistHeadings extends Component {
+class ListColName extends Component {
   render() {
     return (
-        <h6>
+        <div clasName="listColName">
             <span>ID</span>
             <span>Name</span>
             <span>Age</span>
             <span>Job Name</span>
             <span>Description</span>
-        </h6>
+        </div>
     );
   }
 }
 
-// display listing row
-
 class ListColonist extends Component {
   render() {
     return (
-        <h6>
+        <div>
             <span>{this.props.colonist_id}</span>
             <span>{this.props.colonist_name}</span>
             <span>{this.props.colonist_age}</span>
             <span>{this.props.job_name}</span>
             <span>{this.props.job_description}</span>
-        </h6>
+        </div>
     );
   }
 }

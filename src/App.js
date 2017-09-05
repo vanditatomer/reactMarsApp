@@ -5,8 +5,6 @@ import {NewColonist, ListColonists} from './colonist';
 import {NewEncounter, ListEncounters} from './encounter';
 
 const Home = () => (
-    // welcome message for home page
-
     <div>
         <h2>Welcome to Mars Colony!</h2>
     </div>
@@ -15,17 +13,15 @@ const Home = () => (
 class App extends Component {
     render() {
         return (
-            // react router - main menu
-
             <Router>
-                <div className="App">
-                    <div className="container">
+                <div id="grad" className="App">
+                    <div className="appContainer">
 
                         <ul className="main-menu">
-                            <li><Link to="/">Home</Link></li>
+                            <li class="mainFont"><Link to="/">Home</Link></li>
                         </ul>
 
-                        <div className="dropdown">
+                        <div className="dropdown mainFont">
                             <button className="dropdown-button">Colonists</button>
                             <div className="dropdown-content">
                                 <ul>
@@ -35,7 +31,7 @@ class App extends Component {
                             </div>
                         </div>
 
-                        <div className="dropdown">
+                        <div className="dropdown mainFont">
                             <button className="dropdown-button">Encounters</button>
                             <div className="dropdown-content">
                                 <ul>
